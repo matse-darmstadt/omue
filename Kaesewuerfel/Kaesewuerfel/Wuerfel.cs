@@ -7,7 +7,7 @@ namespace Kaesewuerfel
         /// <summary>
         /// Ein 3D Array
         /// </summary>
-        public Cell.CellType[,,] _cellen = null;
+        public Cell[,,] _cellen = null;
 
         /// <summary>
         /// Stack, der den Wasser-Pfad enthält
@@ -37,17 +37,18 @@ namespace Kaesewuerfel
         /// </summary>
         private void InitializeWuerfel()
         {
-            _cellen = new Cell.CellType[_sizeX, _sizeY, _sizeZ];
-
+            Cell c = null;
+            _cellen = new Cell[_sizeX, _sizeY, _sizeZ];
+           
         }
 
         /// <returns>true, wenn es einen Weg gibt</returns>
-        public bool FindRoute(Cell.CellType[,,] cellen)
+        public bool FindRoute(Cell[,,] cellen)
         {
             bool way = false;
-            for (int x = 0; x != _cellen.GetLength(_sizeX); x++)
+            for (int x = 0; x != _sizeX; x++)
             {
-                if (cellen[x, 0, 0] == Cell.CellType.Luft)
+                if (cellen[x, 0, 0]._type == Cell.CellType.Luft)
                 {
                     Cell wCell = new Cell(x, 0, 0);
                     _CellStack.Push(wCell);
@@ -63,9 +64,9 @@ namespace Kaesewuerfel
         /// <param name="cellen">Array von Zellen</param>
         /// <param name="cell">Eine Zelle</param>
         /// <returns></returns>
-        public Stack<Cell> GetWay(Cell.CellType[,,] cellen, Cell cell)
+        public Stack<Cell> GetWay(Cell[,,] cellen, Cell cell)
         {
-            if (cellen[cell._x, cell._y, cell._z] == Cell.CellType.Luft)
+            if (cellen[cell._x, cell._y, cell._z]._type == Cell.CellType.Luft)
             {
 
             }
