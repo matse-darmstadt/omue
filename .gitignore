@@ -1,1 +1,8 @@
 *.sln
+*.suo
+Kaesewuerfel/Kaesewuerfel/App.config
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.CodeAnalysisLog.xml
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.config
+*.lastcodeanalysissucceeded
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.pdb
