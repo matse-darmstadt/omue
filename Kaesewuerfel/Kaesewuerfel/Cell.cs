@@ -20,7 +20,7 @@
 
         /// <summary>
         /// Konstruktor
-        /// </summary> 
+        /// </summary>
         public Cell(int x, int y, int z)
         {
             this._x = x;
