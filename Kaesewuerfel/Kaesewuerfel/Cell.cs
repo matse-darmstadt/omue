@@ -3,7 +3,7 @@
     public class Cell
     {
         /// <summary>
-        /// Cell Typen (Käse, Luft)
+        /// Cell Typen (Käse, Luft, Besucht)
         /// </summary>
         public enum CellType
         {
@@ -11,7 +11,8 @@
             Luft,
             Besucht
         }
-        public int _x, _y, _z;        
+        public int _x, _y, _z;
+
         /// <summary>
         /// Der Type der Zelle
         /// </summary>
@@ -25,6 +26,6 @@
             this._x = x;
             this._y = y;
             this._z = z;
-        }       
+        }
     }
 }

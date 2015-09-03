@@ -1,11 +1,14 @@
-﻿namespace Kaesewuerfel
+﻿using System;
+
+namespace Kaesewuerfel
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Wuerfel wuerfel = new Wuerfel(5, 5, 5);
-            wuerfel.FindRoute(wuerfel._cellen);
+            Cell[,,] newWuerfel = new Cell[3, 3, 1];
+            Wuerfel wuerfel = new Wuerfel(3, 3, 1, newWuerfel);
+
         }
     }
 }
