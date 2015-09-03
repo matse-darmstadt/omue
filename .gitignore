@@ -7,3 +7,12 @@ Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.config
 Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.pdb
 *.exe
 Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.vshost.exe.config
+*.manifest
+*.cache
+Kaesewuerfel/Kaesewuerfel/obj/Debug/Kaesewuerfel.csproj.FileListAbsolute.txt
+Kaesewuerfel/Kaesewuerfel/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+Kaesewuerfel/Kaesewuerfel/obj/Release/Kaesewuerfel.csproj.FileListAbsolute.txt
+*.dll
+*.pdb
+Kaesewuerfel/Kaesewuerfel/bin/Release/Kaesewuerfel.dll.config
+Kaesewuerfel/Tests/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
