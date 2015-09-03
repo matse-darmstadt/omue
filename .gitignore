@@ -5,3 +5,5 @@ Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.CodeAnalysisLog.xml
 Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.config
 *.lastcodeanalysissucceeded
 Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.pdb
+*.exe
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.vshost.exe.config
