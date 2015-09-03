@@ -1,1 +1,13 @@
 *.sln
+*.exe
+Kaesewuerfel/.vs/Kaesewuerfel/v14/.suo
+*.xml
+*.config
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.exe.lastcodeanalysissucceeded
+Kaesewuerfel/Kaesewuerfel/bin/Debug/Kaesewuerfel.pdb
+*.manifest
+*.cache
+Kaesewuerfel/Kaesewuerfel/obj/Debug/Kaesewuerfel.csproj.FileListAbsolute.txt
+*.pdb
+Kaesewuerfel/Kaesewuerfel/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+Kaesewuerfel/Kaesewuerfel/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
