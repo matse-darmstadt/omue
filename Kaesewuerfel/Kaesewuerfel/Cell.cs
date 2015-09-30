@@ -7,7 +7,7 @@
         /// </summary>
         public enum CellType
         {
-            Käse,
+            Kaese,
             Luft,
             Besucht
         }

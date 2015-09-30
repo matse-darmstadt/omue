@@ -21,7 +21,7 @@ namespace Tests
                     for (int z = 0; z < cells.GetLength(2); z++)
                         cells[x, y, z] = new Cell(x, y, z)
                             {
-                                _type = (x == 1 && y == 1) ? Cell.CellType.Luft : Cell.CellType.Käse
+                                _type = (x == 1 && y == 1) ? Cell.CellType.Luft : Cell.CellType.Kaese
                             };
             this._Cube = new Wuerfel(3, 3, 3, cells);
         }
@@ -46,6 +46,16 @@ namespace Tests
             Wuerfel w = new Wuerfel(0, 0, 0);
             w.FindRoute(0, 0, 0);
         }
+        
+        /// <summary>
+        /// With the above defined cheese-cube no route should be found with the given entry point: {X: 0, Y: 0, Z: 0}.
+        /// </summary>
+        [TestMethod]
+        public void No_Route_Found()
+        {
+            Assert.IsFalse(this._Cube.FindRoute(0, 0, 0));
+        }
+
 
         /// <summary>
         /// Test if a System.Exception is thrown when the entry point is inside the cheese-cube and not on the surface.
@@ -54,16 +64,7 @@ namespace Tests
         [ExpectedException(typeof(Exception))]
         public void Entry_Point_Inside_Cube()
         {
-            this._Cube.FindRoute(2, 2, 2);
-        }
-
-        /// <summary>
-        /// With the above defined cheese-cube no route should be found with the given entry point: {X: 0, Y: 0, Z: 0}.
-        /// </summary>
-        [TestMethod]
-        public void No_Route_Found()
-        {
-            Assert.IsFalse(this._Cube.FindRoute(0, 0, 0));
+            this._Cube.FindRoute(1, 1, 1);
         }
 
         /// <summary>
