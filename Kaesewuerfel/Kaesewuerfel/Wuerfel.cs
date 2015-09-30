@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Kaesewuerfel
 {
@@ -14,9 +15,9 @@ namespace Kaesewuerfel
         /// </summary>
         public Stack<Cell> _CellStack = new Stack<Cell>();
 
-        private static int _sizeX;
-        private static int _sizeY;
-        private static int _sizeZ;
+        private int _sizeX;
+        private int _sizeY;
+        private int _sizeZ;
 
         /// <summary>
         /// Käsewürfel
@@ -32,6 +33,23 @@ namespace Kaesewuerfel
             _sizeZ = sizeZ;
             _InitializeWuerfel();
             _fillWurfel(newWuerfel);
+        }
+
+        public  Wuerfel(int sizeX, int sizeY, int sizeZ)
+        {
+            this._sizeX = sizeX;
+            this._sizeY = sizeY;
+            this._sizeZ = sizeZ;
+            this._InitializeWuerfel();
+
+            Random ran = new Random(28);
+            for (int x = 0; x < this._sizeX; x++)
+                for (int y = 0; y < this._sizeY; y++)
+                    for (int z = 0; z < this._sizeZ; z++)
+                    {
+                        this._cellen[x, y, z] = new Cell(x, y, z) { _type = ran.Next(2) == 0 ? Cell.CellType.Käse : Cell.CellType.Luft };
+                        System.Diagnostics.Trace.WriteLine(String.Format("X:{0}, Y:{1}, Z:{2}; {3}", x, y, z, this._cellen[x, y, z]._type.ToString("G")));
+                    }
         }
 
         /// <summary>
@@ -56,11 +74,11 @@ namespace Kaesewuerfel
         }
 
         /// <returns>true, wenn es einen Weg gibt</returns>
-        public bool FindRoute(Cell[,,] cellen)
+        public bool FindRoute(int x, int y, int z)
         {
             bool way = false;
-            Cell wCell = new Cell(0, 0, 0);
-            GetWay(cellen, wCell);
+            Cell wCell = new Cell(x, y, z);
+            GetWay(this._cellen, wCell);
             if (_CellStack.Count > 0)
                 way = true;
             return way;
@@ -81,17 +99,17 @@ namespace Kaesewuerfel
         /// <summary>
         /// Anzahl der n-Segmente in x-Richtung
         /// </summary>
-        public static int sizeX { get { return _sizeX; } }
+        public int sizeX { get { return _sizeX; } }
 
         /// <summary>
         /// Anzahl der n-Segmente in y-Richtung
         /// </summary>
-        public static int sizeY { get { return _sizeY; } }
+        public int sizeY { get { return _sizeY; } }
 
         /// <summary>
         /// Anzahl der n-Segmente in z-Richtung
         /// </summary>
-        public static int sizeZ { get { return _sizeZ; } }
+        public int sizeZ { get { return _sizeZ; } }
 
         /// <summary>
         /// Sucht nach den Nachbern
