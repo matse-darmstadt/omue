@@ -13,11 +13,12 @@ namespace Kaesewuerfel
         /// <summary>
         /// Stack, der den Wasser-Pfad enthält
         /// </summary>
-        public Stack<Cell> _CellStack = new Stack<Cell>();
+      //  public Stack<Cell> _CellStack = new Stack<Cell>();
 
         private int _sizeX;
         private int _sizeY;
         private int _sizeZ;
+        public List<Cell> way = new List<Cell>();
 
         /// <summary>
         /// Käsewürfel
@@ -47,7 +48,10 @@ namespace Kaesewuerfel
                 for (int y = 0; y < this._sizeY; y++)
                     for (int z = 0; z < this._sizeZ; z++)
                     {
-                        this._cellen[x, y, z] = new Cell(x, y, z) { _type = ran.Next(2) == 0 ? Cell.CellType.Kaese : Cell.CellType.Luft };
+                        this._cellen[x, y, z] = new Cell(x, y, z)
+                        {
+                            _type = ran.Next(2) == 0 ? Cell.CellType.Kaese : Cell.CellType.Luft
+                        };
                         System.Diagnostics.Trace.WriteLine(String.Format("X:{0}, Y:{1}, Z:{2}; {3}", x, y, z, this._cellen[x, y, z]._type.ToString("G")));
                     }
         }
@@ -73,41 +77,48 @@ namespace Kaesewuerfel
                         _cellen[x, y, z] = newWuerfel[x, y, z];
         }
 
-        
+
         /// <returns>true, wenn es einen Weg gibt</returns>
         public bool FindRoute(int x, int y, int z)
-        {            
-            Cell wCell = new Cell(x, y, z);
-            if (wCell._y != _sizeY - 1)
-            {
+        {
+            Cell wCell = _cellen[x, y, z];
+
+            if (wCell._type != Cell.CellType.Luft)
+                return false;
+
+            if (wCell._z != 0)
                 throw new System.Exception("No Start Cell");
-            }
-            if (wCell._type == Cell.CellType.Luft)
-            {
-                _CellStack.Push(wCell);
-                GetWay(this._cellen, wCell);
-                if (GetWay(this._cellen, wCell).Count > 0)
-                    return true;
-            }
-            return false;
+
+            return GetWay(wCell).Count > 0 ? true : false;
         }
 
 
-        /// <param name="cellen">Array von Zellen</param>
         /// <param name="cell">Eine Zelle, von der gestartet wird</param>
         /// <returns></returns>
-        public List<Cell> GetWay(Cell[,,] cellen, Cell cell)
+        public List<Cell> GetWay(Cell cell)
         {
+            Cell cel = this._cellen[cell._x, cell._y, cell._z];
+            if (cel._type == Cell.CellType.Luft)
+            {
+                cel._type = Cell.CellType.Besucht;
+                this.way.Add(cel);
+            }
+            if (cel._z == _sizeZ - 1)
+                return way;
+
             List<Cell> __NeighborsCells = GetNeighbors(cell);
-            List<Cell> way = new List<Cell>();
             if (__NeighborsCells.Count != 0)
             {
-                way.Add(__NeighborsCells[1]);
-                //GetWay(cellen, __NeighborsCells[1]);
-                _CellStack.Push(__NeighborsCells[1]);
+                foreach (Cell c in __NeighborsCells)
+                {
+                    List<Cell> path = GetWay(c);
+                    if (path != null)
+                        return path;
+                }
             }
+            else
+                return null;
             return way;
-
         }
         /// <summary>
         /// Anzahl der n-Segmente in x-Richtung
@@ -132,24 +143,63 @@ namespace Kaesewuerfel
         public List<Cell> GetNeighbors(Cell cell)
         {
             List<Cell> _Neighbors = new List<Cell>();
+            Cell cel = this._cellen[cell._x, cell._y, cell._z];
+            if (cel._type == Cell.CellType.Kaese)
+                return _Neighbors;
+
             for (int x = -1; x <= 1; x++)
-                for (int y = -1; y <= 1; y++)
-                    for (int z = -1; z <= 1; z++)
-                    {
-                        if (cell._x + x < _sizeX &&
-                            cell._y + y < _sizeY &&
-                            cell._z + z < _sizeZ &&
-                            cell._x + x >= 0 &&
-                            cell._y + y >= 0 &&
-                            cell._z + z >= 0)
-                        {
-                            bool Luft = _cellen[cell._x + x, cell._y + y, cell._z + z]._type == Cell.CellType.Luft ? true : false;
-                            bool Besucht = _cellen[cell._x + x, cell._y + y, cell._z + z]._type == Cell.CellType.Besucht ? true : false;
-                            if (Luft || !Besucht)
-                                _Neighbors.Add(_cellen[cell._x + x, cell._y + y, cell._z + z]);
-                        }
-                    }
+            {
+                int newX = cel._x + x;
+                if (newX < _sizeX && newX >= 0 && !(x == 0))
+                {
+                    Cell c = _cellen[newX, cell._y, cell._z];
+                    if (AddNeighbor(c))
+                        _Neighbors.Add(c);
+                }
+            }
+            for (int y = -1; y <= 1; y++)
+            {
+                int newY = cel._y + y;
+                if (newY < _sizeY && newY >= 0 && !(y == 0))
+                {
+                    Cell c = _cellen[cell._x, newY, cell._z];
+                    if (AddNeighbor(c))
+                        _Neighbors.Add(c);
+                }
+            }
+
+            for (int z = -1; z <= 1; z++)
+            {
+                int newZ = cel._z + z;
+                if (newZ < _sizeZ && newZ >= 0 &&
+                    !(z == 0))
+                {
+                    Cell c = _cellen[cell._x, cell._y, newZ];
+                    if (AddNeighbor(c))
+                        _Neighbors.Add(c);
+                }
+            }
             return _Neighbors;
+        }
+
+        private bool AddNeighbor(Cell c)
+        {
+            bool Luft = (c._type == Cell.CellType.Luft) ? true : false;
+            bool Besucht = (c._type == Cell.CellType.Besucht) ? true : false;
+            return (Luft && !Besucht);
+        }
+
+
+        public Cell isStart()
+        {            
+            for (int _x = 0; _x < this.sizeZ; _x++)
+                for (int _y = 0; _y < this.sizeY; _y++)
+                {
+                    Cell c = _cellen[_x, _y, 0];
+                    if (c._type == Cell.CellType.Luft)
+                        return c;
+                }
+            return null;
         }
 
     }

@@ -82,7 +82,7 @@ namespace Tests
         [TestMethod]
         public void Validate_No_Found_Route()
         {
-            Assert.Equals(this._Cube.GetWay(this._Cube._cellen, this._Cube._cellen[0, 0, 0]).ToArray(), new Cell[0]);
+            Assert.AreEqual(this._Cube.GetWay(this._Cube._cellen[0, 0, 0]), null);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Tests
             Cell[] expectedWay = new Cell[3];
             for (int z = 0; z < expectedWay.Length; z++)
                 expectedWay[z] = this._Cube._cellen[1, 1, z];
-            Assert.Equals(this._Cube.GetWay(this._Cube._cellen, this._Cube._cellen[1, 1, 0]).ToArray(), expectedWay);
+            CollectionAssert.AreEqual(this._Cube.GetWay(this._Cube._cellen[1, 1, 0]).ToArray(), expectedWay);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Tests
         [TestMethod]
         public void Validate_Found_Route_2()
         {
-            Assert.Equals(this._Cube.GetWay(this._Cube._cellen, this._Cube._cellen[1, 1, 2]).ToArray(), new Cell[] { this._Cube._cellen[1, 1, 2] });
+            CollectionAssert.AreEqual(this._Cube.GetWay(this._Cube._cellen[1, 1, 2]).ToArray(), new Cell[] { this._Cube._cellen[1, 1, 2] });
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Tests
         [TestMethod]
         public void Validate_Neighbours_1()
         {
-            Assert.Equals(this._Cube.GetNeighbors(this._Cube._cellen[0, 0, 0]).ToArray(), new Cell[0]);
+            Assert.AreEqual(this._Cube.GetNeighbors(this._Cube._cellen[0, 0, 0]).Count, 0);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Tests
         [TestMethod]
         public void Validate_Neighbours_2()
         {
-            Assert.Equals(this._Cube.GetNeighbors(this._Cube._cellen[1, 1, 0]).ToArray(), new Cell[1] { this._Cube._cellen[1, 1, 1] });
+            CollectionAssert.AreEqual(this._Cube.GetNeighbors(this._Cube._cellen[1, 1, 0]).ToArray(), new Cell[1] { this._Cube._cellen[1, 1, 1] });
         }
     }
 }
